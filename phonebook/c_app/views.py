@@ -21,16 +21,16 @@ def view_contact(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
     return render(request, 'contacts/view_contact.html', {'contact': contact})
 
-def edit_contact(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
+def edit_contact(request, id):
+    contact = get_object_or_404(Contact, pk=id)  # Fetch the contact based on the provided id
     if request.method == 'POST':
-        form = ContactForm(request.POST, request.FILES, instance=contact)
-        if form.is_valid():
-            form.save()
-            return redirect('view_contact', pk=pk)
-    else:
-        form = ContactForm(instance=contact)
-    return render(request, 'contacts/edit_contact.html', {'form': form, 'contact': contact})
+        # Handle form submission (e.g., save changes to the contact)
+        contact.name = request.POST['name']
+        contact.phone = request.POST['phone']
+        contact.email = request.POST['email']
+        contact.save()
+        return redirect('list_contacts')  # Redirect to the contact list page
+    return render(request, 'contacts/edit_contact.html', {'contact': contact})
 
 def delete_contact(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
