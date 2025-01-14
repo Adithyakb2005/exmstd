@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+
+    {% block content %}
+    <h2 class="text-center mb-4">Contact List</h2>
+    <div class="row">
+        {% for contact in contacts %}
+            <div class="col-md-4">
+                <div class="card shadow mb-4">
+                    <img src="{{ contact.image.url }}" class="card-img-top" alt="{{ contact.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ contact.name }}</h5>
+                        <p class="card-text">{{ contact.email }}</p>
+                        <a href="{{ contact.id }}/" class="btn btn-info">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="add/" class="btn btn-success mt-4">Add New Contact</a>
+    {% endblock %}
+
+
+</body>
+</html>
